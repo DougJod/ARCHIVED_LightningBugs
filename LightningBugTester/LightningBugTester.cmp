@@ -1,0 +1,132 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" >
+    <aura:handler name="init" value="{!this}" action="{!c.onInitialize}" />
+
+	<aura:attribute name="myCase" type="Case" default="{'sobjectType':'Case', 'Initialized_Field':''}"/>
+    <aura:attribute name="myUrl" type="String" />
+
+    <div class="slds-box">
+        <div class="slds-col slds-col--padded slds-p-top--large slds-container--large slds-clearfix">
+
+            <form class="slds-form--horizontal ">
+
+                <div class="slds-form-element slds-has-divider--bottom">
+                    <label class="slds-form-element__label">Initialize all object fields</label>
+                    <div class="slds-form-element__control">
+                        <ui:inputCheckbox class="slds-checkbox"
+                                        aura:id="init-object"
+                                        change="{!c.onInitCheckChanged}" />
+                    </div>
+                </div>
+
+    <!-- BOUND TO OBJECT FIELD -->
+                <div class="slds-form-element ">
+                    <label class="slds-form-element__label" for="case-custom-field">
+                        This is bound directly to an uninitialized object field:
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:inputText value="{!v.myCase.Bound_Field}"
+                                    placeholder="enter some text"
+                                    class="slds-input"
+                                    aura:id="case-custom-field"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-has-divider--bottom">
+                    <label class="slds-form-element__label">
+                        OUTPUT:
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:outputText value="{!v.myCase.Bound_Field}"
+                                        class="slds-form-element__static" />
+                    </div>
+                </div>
+
+
+
+    <!-- UPDATE UNINITIALIZED OBJECT FIELD FROM JS-->
+                <div class="slds-form-element ">
+                    <label class="slds-form-element__label" for="case-custom-field">
+                        This updates an uninitialized object field in JS:
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:inputText class="slds-input"
+                                    placeholder="enter some text"
+                                    aura:id="case-update-uninitialized-field"
+                                    change="{!c.onCustomChanged}"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-has-divider--bottom">
+                    <label class="slds-form-element__label">
+                        OUTPUT:
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:outputText value="{!v.myCase.Uninitialized_Field}"
+                                    class="slds-form-element__static" />
+                    </div>
+                </div>
+
+    <!-- UPDATE INITIALIZED OBJECT FIELD FROM JS-->
+                <div class="slds-form-element ">
+                    <label class="slds-form-element__label" for="case-custom-field">
+                        This updates an initialized object field in JS:
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:inputText class="slds-input"
+                                    placeholder="enter some text"
+                                    aura:id="case-update-initialized-field"
+                                    change="{!c.onCustomChanged}"/>
+                    </div>
+                </div>
+                <div class="slds-form-element slds-has-divider--bottom">
+                    <label class="slds-form-element__label">
+                        OUTPUT:
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:outputText value="{!v.myCase.Initialized_Field}"
+                                    class="slds-form-element__static" />
+                    </div>
+                </div>
+
+
+
+    <!-- URL TEST -->
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">
+                        Open this URL using the bottons =
+                    </label>
+                    <div class="slds-form-element__control">
+                        <ui:inputText value="{!v.myUrl}"
+                                    placeholder="http://someurl.com"
+                                    class="slds-input"/>
+                    </div>
+                </div>
+
+                <div class="slds-form-element slds-has-divider--bottom" align="right" style="padding-bottom:.5rem;">
+                    <ui:button buttonTitle="Location" label="window.location=URL"
+                            press="{!c.windowLocation}"
+                            class="slds-button slds-button--brand"/>
+                    <ui:button buttonTitle="Open" label="window.open(URL)"
+                            press="{!c.windowOpen}"
+                            class="slds-button slds-button--brand"/>
+                    <ui:button buttonTitle="Open" label="force:navigateToURL"
+                            press="{!c.openUrl}"
+                            class="slds-button slds-button--brand"/>
+                </div>
+
+
+
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label">
+                        print object to the debug console
+                    </label>
+                    <ui:button buttonTitle="Log" label="console.log"
+                            press="{!c.logObject}"
+                            class="slds-button slds-button--brand"/>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+
+</aura:component>
